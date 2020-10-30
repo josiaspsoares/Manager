@@ -101,6 +101,7 @@ int insereListaOrdenada(Lista* ListaEstoque, TipoProduto DadosProduto){
     no->Dados = DadosProduto;
 
     if(listaVazia(ListaEstoque)){
+        free(no);
         return insereListaInicio(ListaEstoque, DadosProduto);
     }
     else{
