@@ -3,9 +3,9 @@
 #include"ListaEstoque.h"
 
 struct elemento{
-    TipoProduto Dados; // Armazena os dados do TAD TipoProduto
-    struct elemento *anterior; // Aponta para o elemento anterior da Lista
-    struct elemento *proximo; // Aponta para o próximo elemento da Lista
+    TipoProduto Dados;
+    struct elemento *anterior;
+    struct elemento *proximo; 
 };
 typedef struct elemento Elemento;
 
@@ -42,40 +42,26 @@ void liberaLista(Lista* ListaEstoque){
 }
 
 int listaVazia(Lista* ListaEstoque){
-    if(ListaEstoque == NULL){
-        return 1; 
-    }
-    if(ListaEstoque->primeiro == NULL){
-        return 1;
-    }
-
+    if(ListaEstoque == NULL) return 1;
+    if(ListaEstoque->primeiro == NULL) return 1;
     return 0;
 }
 
 int tamanhoLista(Lista* ListaEstoque){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-    
+    if(ListaEstoque == NULL) return 0;
     return ListaEstoque->quantidade;
 }
 
 int insereListaInicio(Lista* ListaEstoque, TipoProduto DadosProduto){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-
+    if(ListaEstoque == NULL) return 0;
+    
     Elemento* no = (Elemento*) malloc(sizeof(Elemento));
-    if(no == NULL){
-        return 0; 
-    }
-
+    if(no == NULL) return 0; 
     no->Dados = DadosProduto;
 
     if(listaVazia(ListaEstoque)){ 		
 		ListaEstoque->primeiro = no;
-		ListaEstoque->ultimo = no; 
-		ListaEstoque->quantidade++;
+		ListaEstoque->ultimo = no;
 	}
 	else{		
 		no->proximo = ListaEstoque->primeiro;
@@ -88,45 +74,33 @@ int insereListaInicio(Lista* ListaEstoque, TipoProduto DadosProduto){
 }
 
 int insereListaFinal(Lista* ListaEstoque, TipoProduto DadosProduto){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
+    if(ListaEstoque == NULL) return 0;
 
     Elemento* no = (Elemento*) malloc(sizeof(Elemento));
-    if(no == NULL){
-        return 0;
-    }
-
+    if(no == NULL) return 0;
     no->Dados = DadosProduto;
 
     if(listaVazia(ListaEstoque)){ 
-		insereListaInicio(ListaEstoque, DadosProduto);
+		return insereListaInicio(ListaEstoque, DadosProduto);
 	}
 	else{		
 		ListaEstoque->ultimo->proximo = no;
 		no->anterior = ListaEstoque->ultimo; 
 		ListaEstoque->ultimo = no;
+        ListaEstoque->quantidade++;
+        return 1;
 	}
-
-    ListaEstoque->quantidade++;
-    return 1;
 }
 
 int insereListaOrdenada(Lista* ListaEstoque, TipoProduto DadosProduto){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-
+    if(ListaEstoque == NULL) return 0;
+    
     Elemento* no = (Elemento*) malloc(sizeof(Elemento));
-    if(no == NULL){
-        return 0;
-    }
-
+    if(no == NULL) return 0;
     no->Dados = DadosProduto;
 
     if(listaVazia(ListaEstoque)){
-        insereListaInicio(ListaEstoque, DadosProduto);
-        return 1;
+        return insereListaInicio(ListaEstoque, DadosProduto);
     }
     else{
 		Elemento *anterior, *atual = ListaEstoque->primeiro;
@@ -154,88 +128,71 @@ int insereListaOrdenada(Lista* ListaEstoque, TipoProduto DadosProduto){
         ListaEstoque->quantidade++;
         return 1;
 	}
-
 }
 
 int removeListaInicio(Lista* ListaEstoque){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-    if((ListaEstoque->primeiro) == NULL){
-        return 0;
-    }
-
+    if(ListaEstoque == NULL) return 0;
+    if((ListaEstoque->primeiro) == NULL) return 0;
+    
     Elemento *no = ListaEstoque->primeiro;
     ListaEstoque->primeiro = no->proximo;	
 
 	if(no->proximo != NULL){
         no->proximo->anterior = NULL;	
-    }		
-	
-    ListaEstoque->quantidade--;
-	free(no);
-    return 1;
+        ListaEstoque->quantidade--;
+    }
+
+    free(no);
+    return 1;		
 }
 
 int removeListaFinal(Lista* ListaEstoque){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-    if((ListaEstoque->primeiro) == NULL){
-        return 0;
-    }
-
+    if(ListaEstoque == NULL) return 0;
+    if((ListaEstoque->primeiro) == NULL) return 0;
+    
     Elemento *no = ListaEstoque->ultimo;
 
     if(no == ListaEstoque->primeiro){
-        removeListaInicio(ListaEstoque);
+        free(no);
+        return removeListaInicio(ListaEstoque);
     }
     else{
         ListaEstoque->ultimo->anterior->proximo = NULL;
         ListaEstoque->ultimo = ListaEstoque->ultimo->anterior;
+        ListaEstoque->quantidade--;
+        free(no);
+        return 1;
     }
-   
-    ListaEstoque->quantidade--;
-    free(no);
-    return 1;
 }
 
 int removeLista(Lista* ListaEstoque, int codigo){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
+    if(ListaEstoque == NULL) return 0;
     
     Elemento *no = ListaEstoque->primeiro;
-
     while(no != NULL && no->Dados.codigo != codigo){
         no = no->proximo;
     }
 
-    if(no == NULL){
-        return 0;
-    }
-
+    if(no == NULL) return 0;
     if(no == ListaEstoque->primeiro){
-        removeListaInicio(ListaEstoque);
+        free(no);
+        return removeListaInicio(ListaEstoque);
     }
     else if(no == ListaEstoque->ultimo){
-        removeListaFinal(ListaEstoque);
+        free(no);
+        return removeListaFinal(ListaEstoque);
     }
     else{
         no->anterior->proximo = no->proximo;
         no->proximo->anterior = no->anterior;
+        ListaEstoque->quantidade--;
+        free(no);
+        return 1;
     }
-
-    ListaEstoque->quantidade--;
-    free(no);
-    return 1;
-
 }
 
 int consultaListaPosicao(Lista* ListaEstoque, int posicao, TipoProduto *DadosProduto){
-    if(ListaEstoque == NULL || posicao <= 0){
-        return 0;
-    }
+    if(ListaEstoque == NULL || posicao <= 0) return 0;
 
     Elemento *no = ListaEstoque->primeiro;
     int i = 1;
@@ -256,10 +213,8 @@ int consultaListaPosicao(Lista* ListaEstoque, int posicao, TipoProduto *DadosPro
 }
 
 int consultaListaCodigo(Lista* ListaEstoque, int codigo, TipoProduto *DadosProduto){
-    if(ListaEstoque == NULL){
-        return 0;
-    }
-
+    if(ListaEstoque == NULL) return 0;
+    
     Elemento *no = ListaEstoque->primeiro;
     while(no != NULL && no->Dados.codigo != codigo){
         no = no->proximo;
