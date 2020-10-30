@@ -80,7 +80,8 @@ int insereListaFinal(Lista* ListaEstoque, TipoProduto DadosProduto){
     if(no == NULL) return 0;
     no->Dados = DadosProduto;
 
-    if(listaVazia(ListaEstoque)){ 
+    if(listaVazia(ListaEstoque)){
+        free(no);
 		return insereListaInicio(ListaEstoque, DadosProduto);
 	}
 	else{		
