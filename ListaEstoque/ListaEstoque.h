@@ -7,7 +7,7 @@ typedef struct{
     int codigo;
 }TipoProduto;
 
-typedef struct elemento* Lista;
+typedef struct lista Lista;
 
 Lista* criaLista();
 void liberaLista(Lista* ListaEstoque);
