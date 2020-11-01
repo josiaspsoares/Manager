@@ -2,52 +2,18 @@
 #include<stdio.h>
 #include"ListaEstoque.h"
 
-void  verificarEstoque (Lista *ListaEstoque){
-    int opcao;
-    Elemento *elementoAuxiliar;
-    system("cls");
+struct elemento{
+    TipoProduto Dados;
+    struct elemento *anterior;
+    struct elemento *proximo; 
+};
+typedef struct elemento Elemento;
 
-    if (ListaEstoque->quantidade==0){
-        printf("\n\nNão há produtos cadastrados.\n\n");
-        return;
-    }
-
-    printf("<<MENU>>");
-    printf("\n O que você deseja?\n\n");
-    printf("1) Ver o estoque de todos os produtos\n");
-    printf("2) Ver produtos com estoque baixo\n");
-
-    scanf("%d", &opcao);
-
-    switch(opcao){
-        case 1:
-            printf("Imprimindo estoque de todos os produtos:\n\n");
-            elementoAuxiliar=ListaEstoque->primeiro;
-            while(elementoAuxiliar!=NULL){
-                printf("Código %d | %.15s | Estoque %d\n", elementoAuxiliar->Dados.codigo, elementoAuxiliar->Dados.nome, elementoAuxiliar->Dados.quantidade);
-                elementoAuxiliar=elementoAuxiliar->proximo;
-            };
-
-            break;
-        case 2:
-
-            printf("Imprimindo produtos com estoque baixo:\n\n");
-            elementoAuxiliar=ListaEstoque->primeiro;
-
-            while(elementoAuxiliar!=NULL){
-                if (elementoAuxiliar->Dados.quantidade<4){
-                    printf("Código %d | %.15s | Estoque %d\n", elementoAuxiliar->Dados.codigo, elementoAuxiliar->Dados.nome, elementoAuxiliar->Dados.quantidade);
-                }
-                elementoAuxiliar=elementoAuxiliar->proximo;
-            };
-
-            break;
-        default:
-            printf("Opção inválida, retornando ao menu.");
-            break;
-    }
-
-}
+struct lista{
+    Elemento *primeiro;
+    Elemento *ultimo;
+    int quantidade;
+};
 
 Lista* criaLista(){
     Lista* ListaEstoque = (Lista*) malloc(sizeof(Lista));

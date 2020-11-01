@@ -11,8 +11,6 @@ int main(){
 
     ListaEstoque = criaLista();
 
-    verificarEstoque(ListaEstoque);
-
     printf("O programa executou!!!");
     
     liberaLista(ListaEstoque);

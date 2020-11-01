@@ -7,19 +7,6 @@ typedef struct{
     int codigo;
 }TipoProduto;
 
-struct elemento{
-    TipoProduto Dados;
-    struct elemento *anterior;
-    struct elemento *proximo; 
-};
-typedef struct elemento Elemento;
-
-struct lista{
-    Elemento *primeiro;
-    Elemento *ultimo;
-    int quantidade;
-};
-
 typedef struct lista Lista;
 
 Lista* criaLista();
@@ -32,6 +19,5 @@ int insereListaOrdenada(Lista*ListaEstoque, TipoProduto DadosProduto);
 int removeListaInicio(Lista*ListaEstoque);
 int removeListaFinal(Lista*ListaEstoque);
 int removeLista(Lista*ListaEstoque, int codigo);
-void verificarEstoque(Lista *ListaEstoque);
 int consultaListaPosicao(Lista*ListaEstoque, int posicao, TipoProduto *DadosProduto);
 int consultaListaCodigo(Lista*ListaEstoque, int codigo, TipoProduto *DadosProduto);
