@@ -33,5 +33,7 @@ int removeListaInicio(Lista*ListaEstoque);
 int removeListaFinal(Lista*ListaEstoque);
 int removeLista(Lista*ListaEstoque, int codigo);
 void verificarEstoque(Lista *ListaEstoque);
+void exibirEstoque(Lista *ListaEstoque);
+void editarEstoque(Lista *ListaEstoque);
 int consultaListaPosicao(Lista*ListaEstoque, int posicao, TipoProduto *DadosProduto);
 int consultaListaCodigo(Lista*ListaEstoque, int codigo, TipoProduto *DadosProduto);

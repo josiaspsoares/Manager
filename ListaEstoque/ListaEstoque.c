@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 #include"ListaEstoque.h"
 
 void  verificarEstoque (Lista *ListaEstoque){
@@ -263,5 +264,192 @@ int consultaListaCodigo(Lista* ListaEstoque, int codigo, TipoProduto *DadosProdu
          // Obtem os dados do produto consultado através de um ponteiro
         *DadosProduto = no->Dados;
         return 1;
+    }
+}
+
+void exibirEstoque(Lista *ListaEstoque)
+{
+    int opcao,cod,controle=0;
+    float preco;
+    char nome[100];
+    Elemento *auxiliar;
+
+    auxiliar=ListaEstoque->primeiro;
+
+    if (ListaEstoque->quantidade==0){
+        printf("\n\nNão há produtos cadastrados.\n\n");
+        return;
+    }
+
+    printf("<<MENU>>");
+    printf("\n O que você deseja?\n\n");
+    printf("1) Tecle 1 para procurar por nome do produto\n");
+    printf("2) Tecle 2 para procurar por codigo do produto\n");
+    printf("3) Tecle 3 para procurar por preço\n");
+
+    scanf("%d", &opcao);
+
+    switch(opcao)
+    {
+        case 1:
+
+        printf("\nDigite o nome do produto que deseja buscar:\n\n");
+        fflush(stdin);
+        gets(nome);
+
+                while(auxiliar->proximo!=NULL)
+                {
+                    if(strcmp(nome,auxiliar->Dados.nome)==0)
+                    {
+                        printf("Nome: %s\n",auxiliar->Dados.nome);
+                        printf("Data de Validade: %s\n",auxiliar->Dados.dataValidade);
+                        printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
+                        printf("Código : %d\n",auxiliar->Dados.codigo);
+                        printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
+                        printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                        controle=1;
+                    }
+
+                    auxiliar=auxiliar->proximo;
+                }
+        break;
+
+        case 2:
+        printf("\nDigite o código do produto que deseja buscar:\n\n");
+        scanf("%d",&cod);
+
+                while(auxiliar->proximo!=NULL)
+                {
+                    if(cod==auxiliar->Dados.codigo)
+                     {
+                        printf("Nome: %s\n",auxiliar->Dados.nome);
+                        printf("Data de Validade: %s\n",auxiliar->Dados.dataValidade);
+                        printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
+                        printf("Código : %d\n",auxiliar->Dados.codigo);
+                        printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
+                        printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                        controle=1;
+                    }
+                     auxiliar=auxiliar->proximo;
+                }
+
+        break;
+
+        case 3:
+        {
+            printf("\nDigite o preço do produto que deseja buscar:\n\n");
+            scanf("%f",&preco);
+
+                while(auxiliar->proximo!=NULL)
+                    {
+                        if(preco==auxiliar->Dados.valorDeSaida)
+                         {
+                            printf("Nome: %s\n",auxiliar->Dados.nome);
+                            printf("Data de Validade: %s\n",auxiliar->Dados.dataValidade);
+                            printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
+                            printf("Código : %d\n",auxiliar->Dados.codigo);
+                            printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
+                            printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                            controle=1;
+                        }
+                         auxiliar=auxiliar->proximo;
+                    }
+
+        break;
+
+        }
+
+        default:
+        printf("\nOpção inválida\n\n");
+        break;
+    }
+
+    if(controle==0)
+    {
+        printf("Não foi encontrado o produto\n\n");
+    }
+}
+
+void editarEstoque(Lista *ListaEstoque)
+{
+    int opcao,cod,controle=0;
+    float preco;
+    char nome[100];
+    Elemento *auxiliar;
+    Elemento *aux;
+
+    auxiliar=ListaEstoque->primeiro;
+
+    if (ListaEstoque->quantidade==0){
+        printf("\n\nNão há produtos cadastrados.\n\n");
+        return;
+    }
+
+    printf("\nDigite o nome do produto que deseja buscar:\n\n");
+    fflush(stdin);
+    gets(nome);
+
+     while(auxiliar->proximo!=NULL)
+    {
+            if(strcmp(nome,auxiliar->Dados.nome)==0)
+            {
+                printf("Nome: %s\n",auxiliar->Dados.nome);
+                printf("Data de Validade: %s\n",auxiliar->Dados.dataValidade);
+                printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
+                printf("Código : %d\n",auxiliar->Dados.codigo);
+                printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
+                printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                controle=1;
+                aux=auxiliar;
+            }
+            auxiliar=auxiliar->proximo;
+    }
+
+    if(controle==1)
+    {
+            do
+            {
+            printf("\n\n<<MENU>>");
+            printf("\n O que você deseja?\n\n");
+            printf("1) Tecle 1 para alterar a Validade do produto\n");
+            printf("2) Tecle 2 para alterar a quantidade do produto\n");
+            printf("3) Tecle 3 para alterar o valor de entrada\n");
+            printf("4) Tecle 4 para alterar o valor de saída\n");
+            printf("5) Tecle 5 para sair\n\n");
+            scanf("%d", &opcao);
+
+                switch(opcao)
+                {
+                        case 1:
+                        printf("Data de Validade atual: %s\n\n",aux->Dados.dataValidade);
+                        printf("\t->Digite uma nova data:\n\n");
+                        gets(aux->Dados.dataValidade);
+                        break;
+
+                        case 2:
+                        printf("Quantidade de produtos atual: %d\n\n",aux->Dados.quantidade);
+                        printf("\t->Digite uma nova quantidade:\n\n");
+                        scanf("%d",&aux->Dados.quantidade);
+                        break;
+
+                        case 3:
+                        printf("Valor de entrada atual: %.2f\n\n",aux->Dados.valorDeEntrada);
+                        printf("\t->Digite um novo valor de entrada:\n\n");
+                        scanf("%f",&aux->Dados.valorDeEntrada);
+                        break;
+
+                        case 4:
+                        printf("Valor de saída atual: %.2f\n\n",aux->Dados.valorDeSaida);
+                        printf("\t->Digite um novo valor de entrada:\n\n");
+                        scanf("%f",&aux->Dados.valorDeSaida);
+                        break;
+
+                    }
+            }while(opcao!=5);
+    }
+
+    else
+    {
+        printf("Não foi encontrado o produto\n\n");
     }
 }
