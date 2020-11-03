@@ -306,7 +306,7 @@ void exibirEstoque(Lista *ListaEstoque)
                         printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
                         printf("Código : %d\n",auxiliar->Dados.codigo);
                         printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
-                        printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                        printf("Valor de saida: %.2f\n\n",auxiliar->Dados.valorDeSaida);
                         controle=1;
                     }
 
@@ -327,7 +327,7 @@ void exibirEstoque(Lista *ListaEstoque)
                         printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
                         printf("Código : %d\n",auxiliar->Dados.codigo);
                         printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
-                        printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                        printf("Valor de saida: %.2f\n\n",auxiliar->Dados.valorDeSaida);
                         controle=1;
                     }
                      auxiliar=auxiliar->proximo;
@@ -349,7 +349,7 @@ void exibirEstoque(Lista *ListaEstoque)
                             printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
                             printf("Código : %d\n",auxiliar->Dados.codigo);
                             printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
-                            printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                            printf("Valor de saida: %.2f\n\n",auxiliar->Dados.valorDeSaida);
                             controle=1;
                         }
                          auxiliar=auxiliar->proximo;
@@ -398,7 +398,7 @@ void editarEstoque(Lista *ListaEstoque)
                 printf("Quantidade : %d\n",auxiliar->Dados.quantidade);
                 printf("Código : %d\n",auxiliar->Dados.codigo);
                 printf("Valor de entrada : %.2f\n",auxiliar->Dados.valorDeEntrada);
-                printf("Valor de saida: %.2\n\n",auxiliar->Dados.valorDeSaida);
+                printf("Valor de saida: %.2f\n\n",auxiliar->Dados.valorDeSaida);
                 controle=1;
                 aux=auxiliar;
             }
@@ -423,6 +423,7 @@ void editarEstoque(Lista *ListaEstoque)
                         case 1:
                         printf("Data de Validade atual: %s\n\n",aux->Dados.dataValidade);
                         printf("\t->Digite uma nova data:\n\n");
+                        fflush(stdin);
                         gets(aux->Dados.dataValidade);
                         break;
 
