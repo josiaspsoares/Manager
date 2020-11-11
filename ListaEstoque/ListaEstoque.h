@@ -39,3 +39,4 @@ void editarEstoque(Lista *ListaEstoque);
 int consultaListaPosicao(Lista*ListaEstoque, int posicao, TipoProduto *DadosProduto);
 int consultaListaCodigo(Lista*ListaEstoque, int codigo, TipoProduto *DadosProduto);
 void cadastroProduto(TipoProduto* DadosProduto);
+void cadastroVenda(TipoProduto* DadosProduto);

@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<locale.h>
+#include<windows.h>
 #include"ListaEstoque/ListaEstoque.h"
 
 int menu();
@@ -10,7 +11,7 @@ int main(){
 
     Lista *ListaEstoque;
     TipoProduto *DadosProduto = (TipoProduto*) malloc(sizeof(TipoProduto));
-    int opcao;
+    int opcao, codigoRemover, statusCode;
 
     ListaEstoque = criaLista();
 
@@ -41,6 +42,42 @@ int main(){
                 editarEstoque(ListaEstoque);
                 system("pause");
                 break;
+            case 5:
+                if(ListaEstoque->quantidade == 0){
+                    printf("\n\n\t\t\t\t\t<<< NÃO HÁ PRODUTOS CADASTRADOS NO ESTOQUE >>>\n\n");
+                    Sleep(2000);
+                }
+                else{
+                    printf("\n\n\t\t\t\t\t\t====================================\n");
+                    printf("\n\t\t\t\t\t\t*** MANAGER - REMOÇÃO DE PRODUTOS ***\n");
+                    printf("\n\t\t\t\t\t\t====================================\n\n");
+                    printf("\n\t\t\t\t\t > Informe o código do produto: ");
+                    scanf("%d", &codigoRemover);
+                    statusCode = consultaListaCodigo(ListaEstoque, codigoRemover, DadosProduto);
+                    if(statusCode == 1){
+                        printf("\n\t\t\t\t\t > Confirme a remoção de %s", DadosProduto->nome);
+                        printf("\t\t\t\t\t > ( 1 - SIM )  ( 0 - NÃO )  --> ");
+                        scanf("%d", &opcao);
+                        system("cls");
+
+                        if(opcao == 1){
+                            removeLista(ListaEstoque, codigoRemover);
+                            printf("\n\n\t\t\t\t\t<<< PRODUTO REMOVIDO COM SUCESSO >>>\n\n");
+                            Sleep(2000);
+                        }
+                        else{
+                            printf("\n\n\t\t\t\t\t<<< SOLICITAÇÃO CANCELADA >>>\n\n");
+                            Sleep(2000);
+                        }
+ 
+                    }
+                    else{
+                        system("cls");
+                        printf("\n\n\t\t\t\t\t<<< A REMOÇÃO FALHOU! PRODUTO NÃO ENCONTRADO >>>\n\n");
+                        Sleep(2000);
+                    }
+                }
+                break;
             default: break;
         }
 
@@ -62,11 +99,12 @@ int menu(){
     printf("\n 2 - Exibe Produtos");
     printf("\n 3 - Verificar Estoque");
     printf("\n 4 - Editar");
+    printf("\n 5 - Remover Produto");
 	printf("\n 0 - Sair");
 	printf("\n\n  ---> ");
 	scanf("%d", &opcao);
 
-	if(opcao >= 0 && opcao < 5){
+	if(opcao >= 0 && opcao < 6){
         system("cls");
 		return opcao;
 	}

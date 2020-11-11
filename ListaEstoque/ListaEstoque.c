@@ -447,10 +447,10 @@ void cadastroProduto(TipoProduto* DadosProduto){
 	printf("\n * CADASTRO DE PRODUTO *\n");
 	printf(" Nome:");
 	fflush(stdin);
-	fgets(DadosProduto->nome, 200, stdin);
+	gets(DadosProduto->nome);
 	printf(" Data de Validade:");
 	fflush(stdin);
-	fgets(DadosProduto->dataValidade, 12, stdin);
+	gets(DadosProduto->nome);
 	printf(" Valor de Entrada:");
 	fflush(stdin);
 	scanf(" %f", &DadosProduto->valorDeEntrada);
@@ -470,10 +470,10 @@ void cadastroVenda(TipoProduto* DadosProduto){
 	printf("\n * CADASTRO DE VENDA *\n");
 	printf(" Nome:");
 	fflush(stdin);
-	fgets(DadosProduto->nome, 200, stdin);
+	gets(DadosProduto->nome);
 	printf(" Data de Validade:");
 	fflush(stdin);
-	fgets(DadosProduto->dataValidade, 12, stdin);
+	gets(DadosProduto->nome);
 	printf(" Valor de Entrada:");
 	fflush(stdin);
 	scanf(" %f", &DadosProduto->valorDeEntrada);
