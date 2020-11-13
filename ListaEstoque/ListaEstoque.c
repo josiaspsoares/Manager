@@ -181,27 +181,6 @@ int removeLista(Lista* ListaEstoque, int codigo){
     }
 }
 
-int consultaListaPosicao(Lista* ListaEstoque, int posicao, TipoProduto *DadosProduto){
-    if(ListaEstoque == NULL || posicao <= 0) return 0;
-
-    Elemento *no = ListaEstoque->primeiro;
-    int i = 1;
-
-    while(no != NULL && i < posicao){
-        no = no->proximo;
-        i++;
-    }
-
-    if(no == NULL){
-        return 0;
-    }
-    else{
-        // Obtem os dados do produto consultado através de um ponteiro
-        *DadosProduto = no->Dados;
-        return 1;
-    }
-}
-
 int consultaListaCodigo(Lista* ListaEstoque, int codigo, TipoProduto *DadosProduto){
     if(ListaEstoque == NULL) return 0;
     
