@@ -9,7 +9,7 @@ int menu();
 int main(){
     setlocale(LC_ALL, "Portuguese");
 
-    Lista *ListaEstoque;
+    ListaProdutos *ListaEstoque;
     TipoProduto *DadosProduto = (TipoProduto*) malloc(sizeof(TipoProduto));
     int opcao, codigoRemover, statusCode;
 

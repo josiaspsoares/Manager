@@ -7,35 +7,35 @@ typedef struct{
     int codigo;
 }TipoProduto;
 
-struct elemento{
+struct elementoProduto{
     TipoProduto Dados;
-    struct elemento *anterior;
-    struct elemento *proximo; 
+    struct elementoProduto *anterior;
+    struct elementoProduto *proximo; 
 };
-typedef struct elemento Elemento;
+typedef struct elementoProduto ElementoProduto;
 
-struct lista{
-    Elemento *primeiro;
-    Elemento *ultimo;
+struct listaProdutos{
+    ElementoProduto *primeiro;
+    ElementoProduto *ultimo;
     int quantidade;
 };
 
-typedef struct lista Lista;
+typedef struct listaProdutos ListaProdutos;
 
-Lista* criaLista();
-void liberaLista(Lista* ListaEstoque);
-int tamanhoLista(Lista* ListaEstoque);
-int listaVazia(Lista* ListaEstoque);
-int insereListaInicio(Lista*ListaEstoque, TipoProduto DadosProduto);
-int insereListaFinal(Lista*ListaEstoque, TipoProduto DadosProduto);
-int insereListaOrdenada(Lista*ListaEstoque, TipoProduto DadosProduto);
-int removeListaInicio(Lista*ListaEstoque);
-int removeListaFinal(Lista*ListaEstoque);
-int removeLista(Lista*ListaEstoque, int codigo);
-void verificarEstoque(Lista *ListaEstoque);
-void exibirItem(Elemento *auxiliar);
-void exibirEstoque(Lista *ListaEstoque);
-void editarEstoque(Lista *ListaEstoque);
-int consultaListaCodigo(Lista*ListaEstoque, int codigo, TipoProduto *DadosProduto);
+ListaProdutos* criaLista();
+void liberaLista(ListaProdutos *ListaEstoque);
+int tamanhoLista(ListaProdutos *ListaEstoque);
+int listaVazia(ListaProdutos *ListaEstoque);
+int insereListaInicio(ListaProdutos *ListaEstoque, TipoProduto DadosProduto);
+int insereListaFinal(ListaProdutos *ListaEstoque, TipoProduto DadosProduto);
+int insereListaOrdenada(ListaProdutos *ListaEstoque, TipoProduto DadosProduto);
+int removeListaInicio(ListaProdutos *ListaEstoque);
+int removeListaFinal(ListaProdutos *ListaEstoque);
+int removeLista(ListaProdutos *ListaEstoque, int codigo);
+void verificarEstoque(ListaProdutos *ListaEstoque);
+void exibirItem(ElementoProduto *auxiliar);
+void exibirEstoque(ListaProdutos *ListaEstoque);
+void editarEstoque(ListaProdutos *ListaEstoque);
+int consultaListaCodigo(ListaProdutos*ListaEstoque, int codigo, TipoProduto *DadosProduto);
 void cadastroProduto(TipoProduto* DadosProduto);
 void cadastroVenda(TipoProduto* DadosProduto);

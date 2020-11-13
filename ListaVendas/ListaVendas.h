@@ -13,7 +13,7 @@ typedef struct{
     char codigo;
     char vendedor[100];
     Time *DataHora;
-    Lista *Carrinho;
+    ListaProdutos *Carrinho;
     int volumes;
     char metodoPagamento[50];
     float totalVenda;
@@ -37,7 +37,7 @@ struct listaVendas{
 };
 typedef struct listaVendas ListaVendas;
 
-Lista* criaListaVendas();
+ListaVendas* criaListaVendas();
 void liberaListaVendas(ListaVendas* ListaVendasManager);
 int tamanhoListaVendas(ListaVendas* ListaVendasManager);
 int listaVendasVazia(ListaVendas* ListaVendasManager);
