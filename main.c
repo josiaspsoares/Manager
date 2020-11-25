@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<locale.h>
 #include<windows.h>
-#include"ListaEstoque/ListaEstoque.h"
+#include"ListaVendas/ListaVendas.h"
 
 int menu();
 
@@ -10,10 +10,13 @@ int main(){
     setlocale(LC_ALL, "Portuguese");
 
     ListaProdutos *ListaEstoque;
+    ListaVendas *ListaVendido;
+
     TipoProduto *DadosProduto = (TipoProduto*) malloc(sizeof(TipoProduto));
     int opcao, codigoRemover, statusCode;
 
     ListaEstoque = criaLista();
+    ListaVendido =criaListaVendas();
 
     if(ListaEstoque == NULL){
         printf("\nErro: Não foi possível alocar memória para a Lista!\n");
@@ -21,6 +24,7 @@ int main(){
     }
 
     do{
+        system("cls");
         opcao = menu();
         switch (opcao){
             case 1:
@@ -69,7 +73,7 @@ int main(){
                             printf("\n\n\t\t\t\t\t<<< SOLICITAÇÃO CANCELADA >>>\n\n");
                             Sleep(2000);
                         }
- 
+
                     }
                     else{
                         system("cls");
@@ -78,11 +82,22 @@ int main(){
                     }
                 }
                 break;
-            default: break;
+            case 6:
+                realizarVenda(ListaEstoque, ListaVendido);
+                system("pause");
+
+                break;
+            case 7:
+                fechamentoDeCaixa(ListaVendido);
+                system("pause");
+
+                break;
+            default: system("cls");
         }
 
+
     }while(opcao != 0);
-    
+
     liberaLista(ListaEstoque);
 
     return 0;
@@ -100,16 +115,13 @@ int menu(){
     printf("\n 3 - Verificar Estoque");
     printf("\n 4 - Editar");
     printf("\n 5 - Remover Produto");
+    printf("\n 6 - Realizar Venda");
+    printf("\n 7 - Fechamento de Caixa");
 	printf("\n 0 - Sair");
 	printf("\n\n  ---> ");
 	scanf("%d", &opcao);
 
-	if(opcao >= 0 && opcao < 6){
-        system("cls");
-		return opcao;
-	}
-	else{
-		return menu();
-	}
+    return opcao;
 
 }
+

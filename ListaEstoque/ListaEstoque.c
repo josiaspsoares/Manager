@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include<time.h>
 #include"ListaEstoque.h"
 
 ListaProdutos* criaLista(){
@@ -42,21 +43,21 @@ int tamanhoLista(ListaProdutos* ListaEstoque){
 
 int insereListaInicio(ListaProdutos* ListaEstoque, TipoProduto DadosProduto){
     if(ListaEstoque == NULL) return 0;
-    
+
     ElementoProduto* no = (ElementoProduto*) malloc(sizeof(ElementoProduto));
-    if(no == NULL) return 0; 
+    if(no == NULL) return 0;
     no->Dados = DadosProduto;
 
-    if(listaVazia(ListaEstoque)){ 	
+    if(listaVazia(ListaEstoque)){
 		ListaEstoque->primeiro = no;
 		ListaEstoque->ultimo = no;
 	}
-	else{		
+	else{
 		no->proximo = ListaEstoque->primeiro;
 		ListaEstoque->primeiro->anterior = no;
 		ListaEstoque->primeiro = no;
 	}
-     
+
     ListaEstoque->quantidade++;
     return 1;
 }
@@ -74,7 +75,7 @@ int insereListaFinal(ListaProdutos* ListaEstoque, TipoProduto DadosProduto){
 	}
 	else{
 		ListaEstoque->ultimo->proximo = no;
-		no->anterior = ListaEstoque->ultimo; 
+		no->anterior = ListaEstoque->ultimo;
 		ListaEstoque->ultimo = no;
         ListaEstoque->quantidade++;
         return 1;
@@ -83,7 +84,7 @@ int insereListaFinal(ListaProdutos* ListaEstoque, TipoProduto DadosProduto){
 
 int insereListaOrdenada(ListaProdutos* ListaEstoque, TipoProduto DadosProduto){
     if(ListaEstoque == NULL) return 0;
-    
+
     ElementoProduto* no = (ElementoProduto*) malloc(sizeof(ElementoProduto));
     if(no == NULL) return 0;
     no->Dados = DadosProduto;
@@ -123,23 +124,23 @@ int insereListaOrdenada(ListaProdutos* ListaEstoque, TipoProduto DadosProduto){
 int removeListaInicio(ListaProdutos* ListaEstoque){
     if(ListaEstoque == NULL) return 0;
     if((ListaEstoque->primeiro) == NULL) return 0;
-    
+
     ElementoProduto *no = ListaEstoque->primeiro;
-    ListaEstoque->primeiro = no->proximo;	
+    ListaEstoque->primeiro = no->proximo;
 
 	if(no->proximo != NULL){
-        no->proximo->anterior = NULL;	
+        no->proximo->anterior = NULL;
         ListaEstoque->quantidade--;
     }
 
     free(no);
-    return 1;		
+    return 1;
 }
 
 int removeListaFinal(ListaProdutos* ListaEstoque){
     if(ListaEstoque == NULL) return 0;
     if((ListaEstoque->primeiro) == NULL) return 0;
-    
+
     ElementoProduto *no = ListaEstoque->ultimo;
 
     if(no == ListaEstoque->primeiro){
@@ -157,7 +158,7 @@ int removeListaFinal(ListaProdutos* ListaEstoque){
 
 int removeLista(ListaProdutos* ListaEstoque, int codigo){
     if(ListaEstoque == NULL) return 0;
-    
+
     ElementoProduto *no = ListaEstoque->primeiro;
     while(no != NULL && no->Dados.codigo != codigo){
         no = no->proximo;
@@ -183,7 +184,7 @@ int removeLista(ListaProdutos* ListaEstoque, int codigo){
 
 int consultaListaCodigo(ListaProdutos* ListaEstoque, int codigo, TipoProduto *DadosProduto){
     if(ListaEstoque == NULL) return 0;
-    
+
     ElementoProduto *no = ListaEstoque->primeiro;
     while(no != NULL && no->Dados.codigo != codigo){
         no = no->proximo;
@@ -287,7 +288,7 @@ void exibirEstoque(ListaProdutos *ListaEstoque)
         gets(nome);
 
                 while(auxiliar!=NULL)
-                {   
+                {
                     if(strcmp(nome,auxiliar->Dados.nome) == 0)
                     {
                         exibirItem(auxiliar);
@@ -444,25 +445,4 @@ void cadastroProduto(TipoProduto* DadosProduto){
 	printf(" ***\n");
 }
 
-void cadastroVenda(TipoProduto* DadosProduto){
-	printf("\n * CADASTRO DE VENDA *\n");
-	printf(" Nome:");
-	fflush(stdin);
-	gets(DadosProduto->nome);
-	printf(" Data de Validade:");
-	fflush(stdin);
-	gets(DadosProduto->nome);
-	printf(" Valor de Entrada:");
-	fflush(stdin);
-	scanf(" %f", &DadosProduto->valorDeEntrada);
-	printf(" Valor de Saida:");
-	fflush(stdin);
-	scanf(" %f", &DadosProduto->valorDeSaida);
-	printf(" Quantidade:");
-	fflush(stdin);
-	scanf(" %d", &DadosProduto->quantidade);
-	printf(" Codigo:");
-	fflush(stdin);
-	scanf(" %d", &DadosProduto->codigo);
-	printf(" ****\n");
-}
+

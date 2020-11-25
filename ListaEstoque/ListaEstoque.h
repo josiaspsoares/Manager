@@ -10,7 +10,7 @@ typedef struct{
 struct elementoProduto{
     TipoProduto Dados;
     struct elementoProduto *anterior;
-    struct elementoProduto *proximo; 
+    struct elementoProduto *proximo;
 };
 typedef struct elementoProduto ElementoProduto;
 
@@ -38,4 +38,4 @@ void exibirEstoque(ListaProdutos *ListaEstoque);
 void editarEstoque(ListaProdutos *ListaEstoque);
 int consultaListaCodigo(ListaProdutos*ListaEstoque, int codigo, TipoProduto *DadosProduto);
 void cadastroProduto(TipoProduto* DadosProduto);
-void cadastroVenda(TipoProduto* DadosProduto);
+
