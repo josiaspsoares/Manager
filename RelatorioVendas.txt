@@ -1,0 +1,11 @@
+     * RELATÓRIO DE VENDAS *
+
+COD   VENDEDOR     VALOR    PAGAMENTO     DATA 
+  2 - PEDRO      - 1000,00 - Cartão     - 25/11/2020, 20:33:11
+  1 - Josias     - 10000,00 - Dinheiro   - 25/11/2020, 20:32:25
+
+
+ > Caixa Inicial: 0,00
+ > Caixa Final: 11000,00
+ > Lucro Total: 5500,00
+ > Quantidade de vendas: 2

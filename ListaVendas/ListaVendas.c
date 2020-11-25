@@ -147,7 +147,6 @@ void preencherData(TipoVenda *venda){
     return;
 }
 
-
 void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
     ElementoProduto *produtoAuxiliar;
     int opcao,controle=0, respostas=0;//variavel respostas que responde todas as perguntas
@@ -168,7 +167,8 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
     }
 
     produtoAuxiliar=lista->primeiro;
-    printf("<<REALIZAR VENDA>> \n\n");
+    system("cls");
+    printf("<<REALIZAR VENDA>> \n\n\n");
 
     while (produtoAuxiliar!=NULL){
         printf("%d) %s\n", produtoAuxiliar->Dados.codigo, produtoAuxiliar->Dados.nome);
@@ -176,7 +176,7 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
         produtoAuxiliar=produtoAuxiliar->proximo;
     }
 
-    printf("Digite o código do produto que vendeu: ");
+    printf("\n\nDigite o código do produto que vendeu: ");
 
     scanf ("%d", &respostas);
 
@@ -193,11 +193,11 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
     }
 
     if (controle==0){// variavel controle controla se entrou ou não na função que encontra os codigos iguais
-        printf("Não há produtos com o código!");
+        printf("\n\nNão há produtos com o código!\n\n");
         return;
     }
 
-    printf("Produto ( %s ) que custa R$%.2f\nVenda de quantas unidades?  ",produtoVendido->Dados.nome,  produtoVendido->Dados.valorDeSaida);
+    printf("Produto ( %s ) que custa R$%.2f e tem %d unidades de estoque\n\nVenda de quantas unidades?   ",produtoVendido->Dados.nome, produtoVendido->Dados.valorDeSaida, produtoVendido->Dados.quantidade);
 
     scanf ("%d", &respostas);
 
@@ -208,7 +208,7 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
 
         printf("\n\n");
 
-        printf("Qual o método de pagamento?\n1) Cartão\n2)Dinheiro\n\n : ");
+        printf("Qual o método de pagamento?\n\n1) Cartão\n2) Dinheiro\n\n : ");
         do{
             scanf ("%d", &opcao);
         }while(opcao!=1 && opcao!=2);
@@ -222,7 +222,7 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
                 DadosVenda.troco=0;
                 break;
             case 2:
-                printf("Quanto o cliente entregou (Ficará um loop até o cliente entregar um valor maior ou igual a %.2f ):\n\b ", (respostas*produtoVendido->Dados.valorDeSaida));
+                printf("Quanto o cliente entregou (Ficará um loop até o cliente entregar um valor maior ou igual a %.2f ):\n  ", (respostas*produtoVendido->Dados.valorDeSaida));
                 do{
                     scanf ("%f", &valorEntregadoCliente);
                 }while(valorEntregadoCliente<(respostas*produtoVendido->Dados.valorDeSaida));//controla pro valor entregue ser maior
@@ -237,43 +237,45 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
         //processando todos os dados da venda
         DadosVenda.valorPago=(respostas*produtoVendido->Dados.valorDeSaida);
         produtoVendido->Dados.quantidade=produtoVendido->Dados.quantidade-respostas;
-        DadosVenda.codigo=listaVendido->quantidade;
+        DadosVenda.codigo=listaVendido->codigoAtual;
         DadosVenda.lucroVenda=(respostas*produtoVendido->Dados.valorDeSaida)-(respostas*produtoVendido->Dados.valorDeEntrada);
         DadosVenda.totalVenda=respostas*produtoVendido->Dados.valorDeSaida;
+        listaVendido->codigoAtual++;
 
-        printf("\n\nvendedor %s, meto %s, total %.2f, luc %.2f, valor pg %.2f, troco %.2f\n\n", DadosVenda.vendedor,DadosVenda.metodoPagamento,DadosVenda.totalVenda,
+        printf("\n\n Vendedor %s\n Método %s\n Total %.2f\n Lucro %.2f\n Valor pago %.2f\n Troco %.2f\n\n", DadosVenda.vendedor,DadosVenda.metodoPagamento,DadosVenda.totalVenda,
                DadosVenda.lucroVenda, DadosVenda.valorPago,DadosVenda.troco);
-        printf("\n\n%d/%d/%d, %d:%d", DadosVenda.DataHora->dia, DadosVenda.DataHora->mes,DadosVenda.DataHora->ano,DadosVenda.DataHora->hora,DadosVenda.DataHora->minuto, DadosVenda.DataHora->segundo );
+        printf("\n\n DATA %d/%d/%d \n HORA %d:%d:%d\n\n", DadosVenda.DataHora->dia, DadosVenda.DataHora->mes,DadosVenda.DataHora->ano,DadosVenda.DataHora->hora,DadosVenda.DataHora->minuto, DadosVenda.DataHora->segundo );
         insereListaVendasInicio(listaVendido,DadosVenda);
         listaVendido->valorFinalCaixa += DadosVenda.totalVenda;
         listaVendido->lucroFinal += DadosVenda.lucroVenda;
     }
     else{
-        printf("\n\nNão há esse estoque para venda.\n\n");
+        printf("\n\nNão há esse estoque para venda. Há somente %d unidades.\n\n", produtoVendido->Dados.quantidade);
         return;
     }
+
 }
 
 int fechamentoDeCaixa(ListaVendas* ListaVendasManager){
 	int i;
-	
+
     FILE *pont_arq;
     pont_arq = fopen("RelatorioVendas.txt", "w");
 
 	printf(" Valor inicial do caixa: ");
 	scanf("%f", &ListaVendasManager->valorInicialCaixa);
-	
+
     ElementoVenda *VendaAuxiliar = ListaVendasManager->primeiro;
-    
-    fprintf(pont_arq, "     *** RELATÓRIO DE VENDAS ***\n\n");
+
+    fprintf(pont_arq, "     * RELATÓRIO DE VENDAS *\n\n");
     fprintf(pont_arq, "%-3s   %-10s   %-5s    %-10s    %-5s\n", "COD", "VENDEDOR", "VALOR", "PAGAMENTO", "DATA");
 
 	for(i=0; i < ListaVendasManager->quantidade; i++){
         fprintf(pont_arq, "%3d - %-10s - %5.2f - %-10s - ", VendaAuxiliar->Dados.codigo, VendaAuxiliar->Dados.vendedor, VendaAuxiliar->Dados.valorPago, VendaAuxiliar->Dados.metodoPagamento);
-        fprintf(pont_arq,"%d/%d/%d, %d:%d\n", VendaAuxiliar->Dados.DataHora->dia, VendaAuxiliar->Dados.DataHora->mes,VendaAuxiliar->Dados.DataHora->ano,VendaAuxiliar->Dados.DataHora->hora,VendaAuxiliar->Dados.DataHora->minuto, VendaAuxiliar->Dados.DataHora->segundo );
+        fprintf(pont_arq,"%d/%d/%d, %d:%d:%d\n", VendaAuxiliar->Dados.DataHora->dia, VendaAuxiliar->Dados.DataHora->mes,VendaAuxiliar->Dados.DataHora->ano,VendaAuxiliar->Dados.DataHora->hora,VendaAuxiliar->Dados.DataHora->minuto, VendaAuxiliar->Dados.DataHora->segundo );
         VendaAuxiliar = VendaAuxiliar->proximo;
     }
-	
+
 	printf("----------------------------\n");
 	printf(" Caixa Inicial: %.2f\n", ListaVendasManager->valorInicialCaixa);
     fprintf(pont_arq, "\n\n > Caixa Inicial: %.2f\n", ListaVendasManager->valorInicialCaixa);
@@ -288,4 +290,3 @@ int fechamentoDeCaixa(ListaVendas* ListaVendasManager){
     fclose(pont_arq);
     return 0;
 }
-
