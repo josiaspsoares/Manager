@@ -10,6 +10,9 @@ ListaVendas* criaListaVendas(){
     if(ListaVendasManager != NULL){
         ListaVendasManager->primeiro = NULL;
         ListaVendasManager->ultimo = NULL;
+        ListaVendasManager->valorInicialCaixa = 0.0;
+        ListaVendasManager->valorFinalCaixa = 0.0;
+        ListaVendasManager->lucroFinal = 0.0;
         ListaVendasManager->quantidade = 0;
         ListaVendasManager->codigoAtual = 1;
     }
@@ -125,21 +128,21 @@ int removeListaVendas(ListaVendas* ListaVendasManager, int codigo){
 }
 
 void preencherData(TipoVenda *venda){
-	struct tmp *data_hora_atual;
+	struct tm *data_hora_atual;
 	time_t segundos;
 
 	time(&segundos);
-	data_hora_atual = (struct tmp*) localtime(&segundos);
+	data_hora_atual = (struct tm*) localtime(&segundos);
 
 	venda->DataHora->dia=data_hora_atual->tm_mday;
 
     venda->DataHora->mes=data_hora_atual->tm_mon+1;
 
-	 venda->DataHora->ano=data_hora_atual->tm_year+1900;
+	venda->DataHora->ano=data_hora_atual->tm_year+1900;
 
-	 venda->DataHora->hora=data_hora_atual->tm_hour;//hora
-	 venda->DataHora->minuto=data_hora_atual->tm_min;//minuto
-	 venda->DataHora->segundo=data_hora_atual->tm_sec;//segundo
+	venda->DataHora->hora=data_hora_atual->tm_hour;//hora
+	venda->DataHora->minuto=data_hora_atual->tm_min;//minuto
+	venda->DataHora->segundo=data_hora_atual->tm_sec;//segundo
 
     return;
 }
@@ -242,6 +245,8 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
                DadosVenda.lucroVenda, DadosVenda.valorPago,DadosVenda.troco);
         printf("\n\n%d/%d/%d, %d:%d", DadosVenda.DataHora->dia, DadosVenda.DataHora->mes,DadosVenda.DataHora->ano,DadosVenda.DataHora->hora,DadosVenda.DataHora->minuto, DadosVenda.DataHora->segundo );
         insereListaVendasInicio(listaVendido,DadosVenda);
+        listaVendido->valorFinalCaixa += DadosVenda.totalVenda;
+        listaVendido->lucroFinal += DadosVenda.lucroVenda;
     }
     else{
         printf("\n\nNão há esse estoque para venda.\n\n");
@@ -249,5 +254,38 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
     }
 }
 
+int fechamentoDeCaixa(ListaVendas* ListaVendasManager){
+	int i;
+	
+    FILE *pont_arq;
+    pont_arq = fopen("RelatorioVendas.txt", "w");
 
+	printf(" Valor inicial do caixa: ");
+	scanf("%f", &ListaVendasManager->valorInicialCaixa);
+	
+    ElementoVenda *VendaAuxiliar = ListaVendasManager->primeiro;
+    
+    fprintf(pont_arq, "     *** RELATÓRIO DE VENDAS ***\n\n");
+    fprintf(pont_arq, "%-3s   %-10s   %-5s    %-10s    %-5s\n", "COD", "VENDEDOR", "VALOR", "PAGAMENTO", "DATA");
+
+	for(i=0; i < ListaVendasManager->quantidade; i++){
+        fprintf(pont_arq, "%3d - %-10s - %5.2f - %-10s - ", VendaAuxiliar->Dados.codigo, VendaAuxiliar->Dados.vendedor, VendaAuxiliar->Dados.valorPago, VendaAuxiliar->Dados.metodoPagamento);
+        fprintf(pont_arq,"%d/%d/%d, %d:%d\n", VendaAuxiliar->Dados.DataHora->dia, VendaAuxiliar->Dados.DataHora->mes,VendaAuxiliar->Dados.DataHora->ano,VendaAuxiliar->Dados.DataHora->hora,VendaAuxiliar->Dados.DataHora->minuto, VendaAuxiliar->Dados.DataHora->segundo );
+        VendaAuxiliar = VendaAuxiliar->proximo;
+    }
+	
+	printf("----------------------------\n");
+	printf(" Caixa Inicial: %.2f\n", ListaVendasManager->valorInicialCaixa);
+    fprintf(pont_arq, "\n\n > Caixa Inicial: %.2f\n", ListaVendasManager->valorInicialCaixa);
+	printf(" Caixa Final: %.2f\n", ListaVendasManager->valorFinalCaixa);
+    fprintf(pont_arq, " > Caixa Final: %.2f\n", ListaVendasManager->valorFinalCaixa);
+    printf(" Lucro Total: %.2f\n", ListaVendasManager->lucroFinal);
+    fprintf(pont_arq, " > Lucro Total: %.2f\n", ListaVendasManager->lucroFinal);
+	printf(" Quantidade de vendas: %d", ListaVendasManager->quantidade);
+    fprintf(pont_arq, " > Quantidade de vendas: %d", ListaVendasManager->quantidade);
+	printf("----------------------------\n");
+
+    fclose(pont_arq);
+    return 0;
+}
 

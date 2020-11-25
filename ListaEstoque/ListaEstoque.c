@@ -445,27 +445,4 @@ void cadastroProduto(TipoProduto* DadosProduto){
 	printf(" ***\n");
 }
 
-// void cadastroVenda(TipoProduto* DadosProduto){
-// 	printf("\n * CADASTRO DE VENDA *\n");
-// 	printf(" Nome:");
-// 	fflush(stdin);
-// 	gets(DadosProduto->nome);
-// 	printf(" Data de Validade:");
-// 	fflush(stdin);
-// 	gets(DadosProduto->nome);
-// 	printf(" Valor de Entrada:");
-// 	fflush(stdin);
-// 	scanf(" %f", &DadosProduto->valorDeEntrada);
-// 	printf(" Valor de Saida:");
-// 	fflush(stdin);
-// 	scanf(" %f", &DadosProduto->valorDeSaida);
-// 	printf(" Quantidade:");
-// 	fflush(stdin);
-// 	scanf(" %d", &DadosProduto->quantidade);
-// 	printf(" Codigo:");
-// 	fflush(stdin);
-// 	scanf(" %d", &DadosProduto->codigo);
-// 	printf(" ****\n");
-// }
-
 

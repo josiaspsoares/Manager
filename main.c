@@ -84,11 +84,14 @@ int main(){
                 break;
             case 6:
                 realizarVenda(ListaEstoque, ListaVendido);
-
                 system("pause");
 
                 break;
+            case 7:
+                fechamentoDeCaixa(ListaVendido);
+                system("pause");
 
+                break;
             default: system("cls");
         }
 
@@ -113,6 +116,7 @@ int menu(){
     printf("\n 4 - Editar");
     printf("\n 5 - Remover Produto");
     printf("\n 6 - Realizar Venda");
+    printf("\n 7 - Fechamento de Caixa");
 	printf("\n 0 - Sair");
 	printf("\n\n  ---> ");
 	scanf("%d", &opcao);

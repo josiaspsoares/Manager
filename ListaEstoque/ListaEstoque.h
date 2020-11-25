@@ -38,4 +38,4 @@ void exibirEstoque(ListaProdutos *ListaEstoque);
 void editarEstoque(ListaProdutos *ListaEstoque);
 int consultaListaCodigo(ListaProdutos*ListaEstoque, int codigo, TipoProduto *DadosProduto);
 void cadastroProduto(TipoProduto* DadosProduto);
-//void cadastroVenda(TipoProduto* DadosProduto);
+
