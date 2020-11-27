@@ -242,10 +242,13 @@ void realizarVenda(ListaProdutos *lista, ListaVendas *listaVendido){
         DadosVenda.totalVenda=respostas*produtoVendido->Dados.valorDeSaida;
         listaVendido->codigoAtual++;
 
-        printf("\n\n Vendedor %s\n Método %s\n Total %.2f\n Lucro %.2f\n Valor pago %.2f\n Troco %.2f\n\n", DadosVenda.vendedor,DadosVenda.metodoPagamento,DadosVenda.totalVenda,
-               DadosVenda.lucroVenda, DadosVenda.valorPago,DadosVenda.troco);
-        printf("\n\n DATA %d/%d/%d \n HORA %d:%d:%d\n\n", DadosVenda.DataHora->dia, DadosVenda.DataHora->mes,DadosVenda.DataHora->ano,DadosVenda.DataHora->hora,DadosVenda.DataHora->minuto, DadosVenda.DataHora->segundo );
+        printf("\n\n+-------------------------------+\n");
+        printf("|\t  *NOTA FISCAL*\t\t|\n");
+        printf("|\t\t\t\t|\n| Vendedor: %s\t\t\t|\n|\t\t\t\t|\n| Método: %s\t\t|\n|\t\t\t\t|\n|\t\t\t\t|\n| Total: R$ %.2f\t\t|\n|\t\t\t\t|\n| Lucro: R$ %.2f\t\t|\n|\t\t\t\t|\n| Valor pago: R$ %.2f\t\t|\n|\t\t\t\t|\n| Troco: R$ %.2f\t\t|\n|\t\t\t\t|", DadosVenda.vendedor,DadosVenda.metodoPagamento,DadosVenda.totalVenda,
+        DadosVenda.lucroVenda, DadosVenda.valorPago,DadosVenda.troco);
+        printf("\n|\t\t\t\t|\n| DATA %d/%d/%d\t\t|\n|\t\t\t\t|\n| HORA %d:%d:%d\t\t\t|\n|\t\t\t\t|\n", DadosVenda.DataHora->dia, DadosVenda.DataHora->mes,DadosVenda.DataHora->ano,DadosVenda.DataHora->hora,DadosVenda.DataHora->minuto, DadosVenda.DataHora->segundo );
         insereListaVendasInicio(listaVendido,DadosVenda);
+        printf("+-------------------------------+\n\n");
         listaVendido->valorFinalCaixa += DadosVenda.totalVenda;
         listaVendido->lucroFinal += DadosVenda.lucroVenda;
     }
