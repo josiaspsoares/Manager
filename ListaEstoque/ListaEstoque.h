@@ -32,6 +32,7 @@ int insereListaOrdenada(ListaProdutos *ListaEstoque, TipoProduto DadosProduto);
 int removeListaInicio(ListaProdutos *ListaEstoque);
 int removeListaFinal(ListaProdutos *ListaEstoque);
 int removeLista(ListaProdutos *ListaEstoque, int codigo);
+void removeProdutoEstoque(ListaProdutos *ListaEstoque);
 void verificarEstoque(ListaProdutos *ListaEstoque);
 void exibirItem(ElementoProduto *auxiliar);
 void exibirEstoque(ListaProdutos *ListaEstoque);
